@@ -1,0 +1,1432 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>A Little Question</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap');
+
+:root {
+    --bg: #060811;
+    --bg2: #0b0f1c;
+
+    --text: #f5f4f8;
+    --muted: #9297ad;
+
+    --purple: #9b8cff;
+    --blue: #7185ff;
+    --pink: #e99ab5;
+
+    --border: rgba(255,255,255,.09);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(113,133,255,.10),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 80% 80%,
+            rgba(155,140,255,.08),
+            transparent 30%
+        ),
+        linear-gradient(
+            145deg,
+            var(--bg),
+            var(--bg2)
+        );
+
+    color: var(--text);
+
+    font-family: "DM Sans", sans-serif;
+
+    overflow: hidden;
+}
+
+
+/* =========================================
+   BACKGROUND
+========================================= */
+
+.background {
+    position: fixed;
+    inset: 0;
+
+    pointer-events: none;
+
+    overflow: hidden;
+
+    z-index: 0;
+}
+
+.glow {
+    position: absolute;
+
+    border-radius: 50%;
+
+    filter: blur(100px);
+
+    opacity: .12;
+
+    animation:
+        floatGlow
+        12s
+        ease-in-out
+        infinite
+        alternate;
+}
+
+.glow1 {
+    width: 350px;
+    height: 350px;
+
+    background: #6877ff;
+
+    top: -180px;
+    left: -100px;
+}
+
+.glow2 {
+    width: 320px;
+    height: 320px;
+
+    background: #a855f7;
+
+    right: -120px;
+    bottom: -150px;
+
+    animation-delay: -5s;
+}
+
+@keyframes floatGlow {
+
+    from {
+        transform:
+            translate(0,0)
+            scale(1);
+    }
+
+    to {
+        transform:
+            translate(35px,-25px)
+            scale(1.08);
+    }
+
+}
+
+
+/* =========================================
+   SCREENS
+========================================= */
+
+.screen {
+
+    position: fixed;
+
+    inset: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 25px;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transform:
+        scale(.98);
+
+    transition:
+        opacity .65s ease,
+        transform .65s ease,
+        visibility .65s;
+}
+
+.screen.active {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    transform:
+        scale(1);
+}
+
+
+/* =========================================
+   QUESTION SCREEN
+========================================= */
+
+.question-box {
+
+    width:
+        min(650px, 100%);
+
+    text-align: center;
+}
+
+.eyebrow {
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 28px;
+}
+
+.question {
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-size:
+        clamp(42px, 7vw, 72px);
+
+    line-height: 1.08;
+
+    letter-spacing: -2px;
+
+    font-weight: 500;
+}
+
+.question span {
+
+    background:
+        linear-gradient(
+            120deg,
+            #ffffff,
+            #c9c5ff,
+            #e99ab5
+        );
+
+    -webkit-background-clip: text;
+
+    background-clip: text;
+
+    color: transparent;
+}
+
+.question-sub {
+
+    margin-top: 25px;
+
+    color: var(--muted);
+
+    font-size: 15px;
+}
+
+
+/* =========================================
+   NEXT BUTTON
+========================================= */
+
+.next-btn {
+
+    margin-top: 38px;
+
+    padding:
+        14px 28px;
+
+    border-radius: 50px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.11);
+
+    background:
+        rgba(255,255,255,.04);
+
+    color: #eeeef4;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    transition:
+        .3s ease;
+}
+
+.next-btn:hover {
+
+    background:
+        rgba(155,140,255,.10);
+
+    border-color:
+        rgba(155,140,255,.35);
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 10px 30px
+        rgba(100,90,255,.08);
+}
+
+.next-btn:active {
+
+    transform:
+        scale(.96);
+}
+
+
+/* =========================================
+   PASSWORD SCREEN
+========================================= */
+
+.password-box {
+
+    width:
+        min(430px, 100%);
+
+    text-align: center;
+}
+
+.password-title {
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-size: 42px;
+
+    font-weight: 500;
+
+    margin-bottom: 12px;
+}
+
+.password-sub {
+
+    color: var(--muted);
+
+    font-size: 14px;
+
+    line-height: 1.7;
+
+    margin-bottom: 30px;
+}
+
+.password-input {
+
+    width: 100%;
+
+    padding:
+        17px 20px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    border:
+        1px solid
+        rgba(255,255,255,.10);
+
+    border-radius: 14px;
+
+    color: white;
+
+    font-family: inherit;
+
+    font-size: 16px;
+
+    text-align: center;
+
+    outline: none;
+
+    transition:
+        .3s ease;
+}
+
+.password-input::placeholder {
+
+    color: #686d80;
+}
+
+.password-input:focus {
+
+    border-color:
+        rgba(155,140,255,.55);
+
+    box-shadow:
+        0 0 0 4px
+        rgba(155,140,255,.06),
+
+        0 0 30px
+        rgba(155,140,255,.06);
+}
+
+
+/* =========================================
+   UNLOCK BUTTON
+========================================= */
+
+.unlock-btn {
+
+    width: 100%;
+
+    margin-top: 14px;
+
+    padding: 16px;
+
+    border: none;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #777cff,
+            #9b7cf5
+        );
+
+    color: white;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        .3s ease;
+}
+
+.unlock-btn:hover {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 12px 35px
+        rgba(124,110,255,.20);
+}
+
+.unlock-btn:active {
+
+    transform:
+        scale(.98);
+}
+
+
+/* =========================================
+   WRONG PASSWORD MESSAGE
+========================================= */
+
+.error-message {
+
+    min-height: 24px;
+
+    margin-top: 18px;
+
+    color: var(--pink);
+
+    font-size: 13px;
+
+    transition:
+        .25s ease;
+}
+
+
+/* =========================================
+   SHAKE
+========================================= */
+
+.shake {
+
+    animation:
+        shake
+        .4s
+        ease;
+}
+
+@keyframes shake {
+
+    0%, 100% {
+        transform:
+            translateX(0);
+    }
+
+    20% {
+        transform:
+            translateX(-8px);
+    }
+
+    40% {
+        transform:
+            translateX(8px);
+    }
+
+    60% {
+        transform:
+            translateX(-6px);
+    }
+
+    80% {
+        transform:
+            translateX(6px);
+    }
+}
+
+
+/* =========================================
+   LOVE MESSAGE CARD
+========================================= */
+
+.message-card {
+
+    width:
+        min(720px, 100%);
+
+    padding:
+        55px;
+
+    border-radius:
+        28px;
+
+    background:
+        rgba(17,21,38,.72);
+
+    backdrop-filter:
+        blur(25px);
+
+    -webkit-backdrop-filter:
+        blur(25px);
+
+    border:
+        1px solid
+        var(--border);
+
+    box-shadow:
+
+        0 35px 90px
+        rgba(0,0,0,.45),
+
+        inset 0 1px 0
+        rgba(255,255,255,.04);
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+.message-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    left: 12%;
+
+    right: 12%;
+
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(155,140,255,.6),
+            transparent
+        );
+}
+
+
+/* =========================================
+   LABEL
+========================================= */
+
+.label {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 22px;
+}
+
+.label-dot {
+
+    width: 7px;
+
+    height: 7px;
+
+    border-radius: 50%;
+
+    background:
+        var(--pink);
+
+    box-shadow:
+        0 0 14px
+        rgba(233,154,181,.7);
+
+    animation:
+        pulse
+        2s
+        ease-in-out
+        infinite;
+}
+
+@keyframes pulse {
+
+    0%,100% {
+        transform:
+            scale(1);
+
+        opacity: .8;
+    }
+
+    50% {
+        transform:
+            scale(1.3);
+
+        opacity: 1;
+    }
+}
+
+
+/* =========================================
+   MESSAGE TITLE
+========================================= */
+
+.message-title {
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-size:
+        clamp(42px, 7vw, 66px);
+
+    font-weight: 500;
+
+    line-height: 1.05;
+
+    letter-spacing: -2px;
+
+    margin-bottom: 28px;
+}
+
+.message-title span {
+
+    background:
+        linear-gradient(
+            120deg,
+            white,
+            #c9c5ff,
+            #e99ab5
+        );
+
+    -webkit-background-clip: text;
+
+    background-clip: text;
+
+    color: transparent;
+}
+
+
+/* =========================================
+   MESSAGE
+========================================= */
+
+.message {
+
+    color: #c9cad5;
+
+    font-size: 17px;
+
+    line-height: 1.9;
+}
+
+.message strong {
+
+    color: white;
+
+    font-weight: 600;
+}
+
+.message .highlight {
+
+    color:
+        #b8b1ff;
+}
+
+
+/* =========================================
+   DIVIDER
+========================================= */
+
+.divider {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin:
+        35px 0 25px;
+}
+
+.line {
+
+    flex: 1;
+
+    height: 1px;
+
+    background:
+        rgba(255,255,255,.08);
+}
+
+
+/* =========================================
+   HEART
+========================================= */
+
+.heart {
+
+    width: 38px;
+
+    height: 38px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border:
+        1px solid
+        rgba(233,154,181,.13);
+
+    color:
+        var(--pink);
+
+    background:
+        rgba(233,154,181,.05);
+
+    cursor: pointer;
+
+    transition:
+        .3s ease;
+}
+
+.heart:hover {
+
+    transform:
+        scale(1.1);
+
+    background:
+        rgba(233,154,181,.10);
+
+    box-shadow:
+        0 0 25px
+        rgba(233,154,181,.08);
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.footer {
+
+    color:
+        var(--muted);
+
+    font-size:
+        13px;
+
+    line-height:
+        1.7;
+}
+
+.footer span {
+
+    color:
+        #d5d1ff;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media(max-width:600px) {
+
+    .question {
+
+        font-size:
+            44px;
+
+        letter-spacing:
+            -1.5px;
+    }
+
+    .question-sub {
+
+        font-size:
+            14px;
+    }
+
+    .message-card {
+
+        padding:
+            38px 26px;
+
+        border-radius:
+            23px;
+    }
+
+    .message {
+
+        font-size:
+            15.5px;
+
+        line-height:
+            1.85;
+    }
+
+    .message-title {
+
+        font-size:
+            45px;
+    }
+
+    .password-title {
+
+        font-size:
+            38px;
+    }
+
+    .password-box {
+
+        padding:
+            0 5px;
+    }
+}
+
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media(prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+
+        animation-duration:
+            .01ms !important;
+
+        animation-iteration-count:
+            1 !important;
+
+        transition-duration:
+            .01ms !important;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =========================================
+     BACKGROUND
+========================================= -->
+
+<div class="background">
+
+    <div class="glow glow1"></div>
+
+    <div class="glow glow2"></div>
+
+</div>
+
+
+
+<!-- =========================================
+     SCREEN 1
+========================================= -->
+
+<section
+    class="screen active"
+    id="questionScreen"
+>
+
+    <div class="question-box">
+
+        <div class="eyebrow">
+
+            There's something you asked
+
+        </div>
+
+
+        <h1 class="question">
+
+            Aapka question hai...
+
+            <br>
+
+            <span>
+                kya main aapse pyaar karta hoon?
+            </span>
+
+        </h1>
+
+
+        <p class="question-sub">
+
+            Jawab dene se pehle ek choti si cheez hai.
+
+        </p>
+
+
+        <button
+            class="next-btn"
+            id="questionBtn"
+        >
+
+            Aagay →
+
+        </button>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================
+     SCREEN 2 — PASSWORD
+========================================= -->
+
+<section
+    class="screen"
+    id="passwordScreen"
+>
+
+    <div class="password-box">
+
+
+        <div class="eyebrow">
+
+            Almost there
+
+        </div>
+
+
+        <h2 class="password-title">
+
+            Pehle password.
+
+        </h2>
+
+
+        <p class="password-sub">
+
+            Agar tum mujhe itna jaanti ho...
+
+            <br>
+
+            toh password bhi pata hoga. 👀
+
+        </p>
+
+
+        <input
+            type="password"
+            id="passwordInput"
+            class="password-input"
+            placeholder="Enter the password..."
+            autocomplete="off"
+        >
+
+
+        <button
+            class="unlock-btn"
+            id="unlockBtn"
+        >
+
+            Unlock →
+
+        </button>
+
+
+        <div
+            class="error-message"
+            id="errorMessage"
+        ></div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================
+     SCREEN 3 — FINAL MESSAGE
+========================================= -->
+
+<section
+    class="screen"
+    id="messageScreen"
+>
+
+    <div class="message-card">
+
+
+        <div class="label">
+
+            <span class="label-dot"></span>
+
+            A little answer
+
+        </div>
+
+
+        <h2 class="message-title">
+
+            Do I
+
+            <span>
+                love you?
+            </span>
+
+        </h2>
+
+
+        <p class="message">
+
+            Yes, I do. ❤️
+
+            <br><br>
+
+
+            Maybe I don't always say it in the
+            perfect way, and maybe I annoy you,
+            tease you, or sometimes act like I
+            don't care as much as I actually do.
+
+            But the truth is,
+
+            <strong>
+                you genuinely mean a lot to me.
+            </strong>
+
+
+            You're one of those people whose
+            presence quietly becomes a part of
+            your everyday life, and then you
+            realize you wouldn't want that part
+            to disappear.
+
+
+            <br><br>
+
+
+            So yes,
+
+            <span class="highlight">
+                I love you
+            </span>
+
+            — in my own stupid, annoying,
+            caring, always-here kind of way.
+
+
+            And honestly, I hope you already knew
+            that without having to ask. 🫶
+
+        </p>
+
+
+        <div class="divider">
+
+            <div class="line"></div>
+
+            <div
+                class="heart"
+                id="heart"
+            >
+                ♡
+            </div>
+
+            <div class="line"></div>
+
+        </div>
+
+
+        <p class="footer">
+
+            Some answers don't need a dramatic
+            explanation.
+
+            <br>
+
+            <span>
+                Sometimes, they're just a simple “yes.”
+            </span>
+
+        </p>
+
+
+    </div>
+
+</section>
+
+
+
+<script>
+
+
+/* =========================================
+   ELEMENTS
+========================================= */
+
+const questionScreen =
+    document.getElementById(
+        "questionScreen"
+    );
+
+const passwordScreen =
+    document.getElementById(
+        "passwordScreen"
+    );
+
+const messageScreen =
+    document.getElementById(
+        "messageScreen"
+    );
+
+const questionBtn =
+    document.getElementById(
+        "questionBtn"
+    );
+
+const unlockBtn =
+    document.getElementById(
+        "unlockBtn"
+    );
+
+const passwordInput =
+    document.getElementById(
+        "passwordInput"
+    );
+
+const errorMessage =
+    document.getElementById(
+        "errorMessage"
+    );
+
+
+
+/* =========================================
+   PASSWORD
+========================================= */
+
+const correctPassword =
+    "30012008";
+
+
+
+/* =========================================
+   10 WRONG PASSWORD MESSAGES
+========================================= */
+
+const wrongMessages = [
+
+    "Nice try... but nope 😭",
+
+    "Hmm... tumhein password yaad nahi? 👀",
+
+    "Wrong password. Itna bhi easy nahi tha 😭",
+
+    "Acha ji... phir se try karo 😂",
+
+    "Close... but my heart says NO 😌",
+
+    "Password galat hai, bestie. Concentrate 😭",
+
+    "I know you can do better than this 😭",
+
+    "Okayyy... one more try. I believe in you 🫶",
+
+    "Ab toh thora soch lo... kuch important toh hoga 👀",
+
+    "Do meri birthday nhi yaad, gol gappa? 😭😂"
+
+];
+
+
+let messageIndex = 0;
+
+
+
+/* =========================================
+   CHANGE SCREEN
+========================================= */
+
+function changeScreen(
+    current,
+    next
+) {
+
+    current.classList.remove(
+        "active"
+    );
+
+
+    setTimeout(() => {
+
+        next.classList.add(
+            "active"
+        );
+
+    }, 250);
+
+}
+
+
+
+/* =========================================
+   QUESTION → PASSWORD
+========================================= */
+
+questionBtn.addEventListener(
+    "click",
+    () => {
+
+        changeScreen(
+            questionScreen,
+            passwordScreen
+        );
+
+
+        setTimeout(() => {
+
+            passwordInput.focus();
+
+        }, 700);
+
+    }
+);
+
+
+
+/* =========================================
+   CHECK PASSWORD
+========================================= */
+
+function checkPassword() {
+
+    const enteredPassword =
+        passwordInput.value.trim();
+
+
+    /* CORRECT */
+
+    if (
+        enteredPassword ===
+        correctPassword
+    ) {
+
+        errorMessage.textContent =
+            "";
+
+        passwordInput.blur();
+
+
+        changeScreen(
+            passwordScreen,
+            messageScreen
+        );
+
+
+        return;
+    }
+
+
+
+    /* WRONG */
+
+    errorMessage.textContent =
+        wrongMessages[
+            messageIndex
+        ];
+
+
+    messageIndex++;
+
+
+    /*
+       After the 10th message,
+       start again from message 1.
+    */
+
+    if (
+        messageIndex >=
+        wrongMessages.length
+    ) {
+
+        messageIndex = 0;
+
+    }
+
+
+
+    /* SHAKE INPUT */
+
+    passwordInput.classList.remove(
+        "shake"
+    );
+
+
+    void passwordInput.offsetWidth;
+
+
+    passwordInput.classList.add(
+        "shake"
+    );
+
+
+
+    /* CLEAR PASSWORD */
+
+    passwordInput.value = "";
+
+}
+
+
+
+/* =========================================
+   UNLOCK BUTTON
+========================================= */
+
+unlockBtn.addEventListener(
+    "click",
+    checkPassword
+);
+
+
+
+/* =========================================
+   ENTER KEY
+========================================= */
+
+passwordInput.addEventListener(
+    "keydown",
+    (event) => {
+
+        if (
+            event.key ===
+            "Enter"
+        ) {
+
+            checkPassword();
+
+        }
+
+    }
+);
+
+
+
+/* =========================================
+   HEART INTERACTION
+========================================= */
+
+const heart =
+    document.getElementById(
+        "heart"
+    );
+
+
+heart.addEventListener(
+    "click",
+    () => {
+
+        heart.animate(
+
+            [
+                {
+                    transform:
+                        "scale(1)"
+                },
+
+                {
+                    transform:
+                        "scale(1.3)"
+                },
+
+                {
+                    transform:
+                        "scale(1)"
+                }
+
+            ],
+
+            {
+                duration: 500,
+
+                easing:
+                    "cubic-bezier(.2,.8,.2,1)"
+            }
+
+        );
+
+    }
+);
+
+</script>
+
+</body>
+</html>
+```
